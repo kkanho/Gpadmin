@@ -1,0 +1,7 @@
+.customHeight {
+    min-height: 85vh!important;
+}
+
+.carousel-indicators { 
+    visibility: hidden!important;
+}
