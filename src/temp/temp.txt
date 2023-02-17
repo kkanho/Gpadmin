@@ -1,0 +1,49 @@
+{/* <Col>
+                    <Row className="justify-content-center p-4 fs-4">Sign Up</Row>
+                    <Row className="justify-content-center">
+                        <form onSubmit={handleSignUp}>
+                            <Form.Group className="mb-3">
+                                <Form.Label className="fs-5">Email address</Form.Label>
+                                <InputGroup>
+                                    <Form.Control 
+                                        name="studentID"
+                                        onChange={e => {
+                                            setStudentID(e.target.value)
+                                            setEmail(studentID + "@" + schoolMailTemp)
+                                        }} 
+                                        type="text"
+                                        placeholder="Student ID"
+                                        aria-describedby="inputGroupPrepend"
+                                    />
+                                    <InputGroup.Text id="inputGroupPrepend">{schoolMailTemp}</InputGroup.Text>
+                                </InputGroup>
+                                <Form.Text className="text-muted">
+                                    We'll never share your email with anyone else.
+                                </Form.Text>
+                            </Form.Group>
+                            <Form.Group className="mb-3">
+                                <Form.Label className="fs-5">Password</Form.Label>
+                                <Form.Control name="password" onChange={e => setPassword(e.target.value)} type="password" placeholder="Password" autoComplete="new-password"/>
+                            </Form.Group>
+                            <Form.Group className="mb-3">
+                                <Form.Control name="confirmPassword" onChange={e => setConfirmPassword(e.target.value)} type="password" placeholder="Confirm Password" autoComplete="new-password"/>
+                            </Form.Group>
+                            <Form.Group className="mb-3 d-flex justify-content-center">
+                                <Button 
+                                    variant="primary" 
+                                    style={{width: "100%"}}
+                                    type="submit"
+                                    disabled={!checked}
+                                >
+                                    Sign Up
+                                </Button>
+                            </Form.Group>
+                            <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                                    <Form.Check onChange={handleChecked} id="agree" type="checkbox"  />
+                                <input onChange={handleChecked} type="checkbox" id="agree" className="form-check-input me-1" />
+                                <label htmlFor="agree"> I agree to the <a href="#">Terms of Use</a> & <a href="#">Privacy Policy</a></label>
+                            </Form.Group>
+                            {error && <Alert variant="danger">Error! {error}</Alert>}
+                        </form>
+                    </Row>
+                    </Col> */}

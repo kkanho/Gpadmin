@@ -25,20 +25,18 @@ function App() {
   return (
     <>
       <AuthNavbar />
-      <div className="">
+      <div>
         <Routes>
           <Route path="/">
             <Route index element={<Home />} />
-            <Route path="/signup" element={<SignUp />} />
+            <Route path="/signUp" element={<SignUp />} />
             <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/find" 
-              element={
+            <Route path="/find" element={
                 <RequireAuth>
                   <Find />
                 </RequireAuth>
-              } 
-            />
+            }/>
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

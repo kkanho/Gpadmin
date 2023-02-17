@@ -46,7 +46,7 @@ export default function Login() {
     return (
         <div 
             className="d-flex justify-content-center align-items-center customHeight" 
-            style={{background: "#bbb" }}
+            style={{background: "#ccc" }}
         >
             <Card style={{ width: '25rem' }}>
                 <Card.Header>
@@ -60,7 +60,13 @@ export default function Login() {
                                     <Form.Label className="fs-5">
                                         Email address
                                     </Form.Label>
-                                    <Form.Control name="email" onChange={e => setEmail(e.target.value)} type="email" placeholder="Enter email" autoFocus/>
+                                    <Form.Control 
+                                        name="email" 
+                                        onChange={e => setEmail(e.target.value)} 
+                                        type="email" 
+                                        placeholder="Enter email" 
+                                        autoFocus
+                                    />
                                     <Form.Text className="text-muted">
                                         We'll never share your email with anyone else.
                                     </Form.Text>
@@ -69,13 +75,16 @@ export default function Login() {
                                     <Form.Label className="fs-5">
                                         Password
                                     </Form.Label>
-                                    <Form.Control name="password" onChange={e => setPassword(e.target.value)} type="password" placeholder="Password" autoComplete="on"/>
+                                    <Form.Control 
+                                        name="password" 
+                                        onChange={e => setPassword(e.target.value)} 
+                                        type="password" 
+                                        placeholder="Password" 
+                                        autoComplete="on"
+                                    />
                                 </Form.Group>
                                 <Form.Group className="mb-3 d-flex justify-content-center">
-                                    <Button 
-                                        // onClick={e => {
-                                            
-                                        // }} 
+                                    <Button
                                         variant="primary" 
                                         style={{width: "100%"}}
                                         type="submit"

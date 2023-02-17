@@ -1,3 +1,7 @@
+body {
+    /* background: -webkit-linear-gradient(left, #FFFF00 0%, #00BCD4 50%, #EE82EE 100%); */
+}
+
 .customHeight {
     min-height: 85vh!important;
 }

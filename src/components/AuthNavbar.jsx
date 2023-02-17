@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Navbar, Container, Button, Nav, Offcanvas } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext"
+import UserIcon from "../components/UserIcon"
 
 export default function AuthNavbar(){
 
@@ -49,6 +50,7 @@ export default function AuthNavbar(){
                             </Nav>
                         </Nav>
                         {
+                            //if user is not logged in
                             (currentUser === null)?(
                                 <Link to={"/login"} className="d-flex justify-content-end">
                                     <Button>
@@ -56,14 +58,24 @@ export default function AuthNavbar(){
                                     </Button>
                                 </Link> 
                             ) : (
-                                <Link className="d-flex justify-content-end">
-                                    <Button onClick={() => {
-                                        window.localStorage.removeItem("user")
-                                        window.location.reload()
-                                    }}>
-                                        Logout
-                                    </Button>
-                                </Link> 
+                                //make a drop down menu here?
+
+                                <>
+                                    {/* <UserIcon/> */}
+                                    {/* <Nav>
+                                        <Link to={"/UserForm"} className="nav-link">UserForm</Link>
+                                    </Nav> */}
+                                    <div className="d-flex justify-content-end">
+                                        <Link>
+                                            <Button onClick={() => {
+                                                window.localStorage.removeItem("user")
+                                                window.location.reload()
+                                            }}>
+                                                Logout
+                                            </Button>
+                                        </Link>
+                                    </div>
+                                </>
                             )
                         }
                         </>
