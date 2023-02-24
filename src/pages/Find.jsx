@@ -1,7 +1,6 @@
 import { Button, Carousel, Container } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import List from "../components/List"
-import users from "../data/users.json"
 
 
 export default function Find() {

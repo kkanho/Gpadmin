@@ -25,7 +25,7 @@ export default function AuthNavbar(){
             <Navbar key={expand} bg="light" expand={expand}>
             <Container>
                 <Link to={"/"} className="nav-link">
-                    <Navbar.Brand>GPA_SBMM</Navbar.Brand>
+                    <Navbar.Brand>Gpadmin</Navbar.Brand>
                 </Link>
                 <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
                 <Navbar.Offcanvas
@@ -36,7 +36,7 @@ export default function AuthNavbar(){
                     <Offcanvas.Header closeButton>
                         <Link to={"/"} className="nav-link">
                             <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
-                                GPA_SBMM
+                                Gpadmin
                             </Offcanvas.Title>
                         </Link>
                     </Offcanvas.Header>
