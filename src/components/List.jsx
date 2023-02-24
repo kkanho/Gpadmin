@@ -16,7 +16,7 @@ export default function List() {
                 querySnapshot.forEach((doc) => {
                     list.push({id: doc.id, ...doc.data()})
                 });
-                console.log(list)
+                // console.log(list)
                 setData(list)
             }catch(err) {
                 console.log(err)
@@ -24,7 +24,7 @@ export default function List() {
         }
         fetchData()
     }, [])
-    console.log(data)
+    // console.log(data)
 
     return (
         <div className='list'>
