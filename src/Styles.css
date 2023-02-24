@@ -9,3 +9,7 @@ body {
 .carousel-indicators { 
     visibility: hidden!important;
 }
+
+.kick{
+    cursor: pointer;
+}

@@ -34,7 +34,7 @@ export default function About() {
             <Container className="d-flex justify-content-center align-items-center">
                 <Accordion defaultActiveKey="0" style={{ width: '40rem' }}>{
                     list.map((item) => (
-                        <Accordion.Item eventKey={item.id}>
+                        <Accordion.Item eventKey={item.id} key={item.id}>
                             <Accordion.Header>{item.title}</Accordion.Header>
                             <Accordion.Body>
                                 {item.body}

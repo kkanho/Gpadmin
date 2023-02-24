@@ -31,7 +31,7 @@ export default function List() {
             <br />
             <Container className="d-flex gap-3">
                 {data.map(user =>(
-                    <Card className="mb-4">
+                    <Card className="mb-4" key={user.id}>
                         <div>Full Name: {user.FullName}</div>
                         <div>User Name: {user.UserName}</div>
                         <div>ID: {user.StudentID}</div>

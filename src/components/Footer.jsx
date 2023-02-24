@@ -34,7 +34,7 @@ export default function Footer() {
         <React.Fragment>
             <footer className="bg-light border-top py-3 fixed-bottom">
                 <Container>
-                    <span onClick={() => setModalShow(true)}>&copy;</span> Gpadmin - 2023
+                    <span className="kick" onClick={() => setModalShow(true)}>&copy;</span> Gpadmin - 2023
                 </Container>
             </footer>
             <MyVerticallyCenteredModal
