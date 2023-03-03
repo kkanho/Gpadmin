@@ -37,7 +37,7 @@ export default function MiniGame() {
     }
 
     if (seconds === period) {
-        alert("You scored " + score + "!");
+        alert("You have kicked the freerider for " + score + " times in " + period + " seconds!");
         //reset
         setStart(false)
         setSeconds(0)
@@ -78,7 +78,7 @@ export default function MiniGame() {
                         <Container className="d-flex flex-column" style={{ paddingBottom: "70px" }}>
                             <div className="text-info" style={{ textAlign: "center" }}>You get score by kicking the freerider</div>
                             <Container className="d-flex justify-content-center align-items-center pt-1">
-                                <div className="text-info" style={{ textAlign: "center" }}>Keep clicking</div>
+                                <div className="text-info mt-1">Keep clicking</div>
                                 <Dropdown>
                                     <Dropdown.Toggle variant="light">
                                         {period}s
