@@ -60,8 +60,8 @@ export default function Find() {
                 console.log("--------------------filter loop", i, "start--------------------") 
                 for(var j=3; j<=30; j+=3){
                     console.log("matching user: ",matchedUsers[i].id, matchedUsers[i].CGPA)
-                    if(matchedUsers[i].CGPA >= current[0].CGPA - j/10 // lower limit
-                        && matchedUsers[i].CGPA <= current[0].CGPA + j/10){ // upper limit
+                    if(parseFloat(matchedUsers[i].CGPA) >= parseFloat(current[0].CGPA) - j/10 // lower limit
+                        && parseFloat(matchedUsers[i].CGPA) <= parseFloat(current[0].CGPA) + j/10){ // upper limit
                             filteredUser.push(matchedUsers[i])
                             filtered = true
                             console.log("filtered list: ", filteredUser)
