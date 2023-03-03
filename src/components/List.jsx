@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Card, Container } from "react-bootstrap";
+import { Button, Card, Container } from "react-bootstrap";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../data/firebase"
 
@@ -16,7 +16,6 @@ export default function List() {
                 querySnapshot.forEach((doc) => {
                     list.push({id: doc.id, ...doc.data()})
                 });
-                console.log(list)
                 setData(list)
             }catch(err) {
                 console.log(err)
@@ -24,21 +23,22 @@ export default function List() {
         }
         fetchData()
     }, [])
-    console.log(data)
 
     return (
         <div className='list'>
             <br />
             <Container className="d-flex gap-3">
-                {data.map(user =>(
-                    <Card className="mb-4" key={user.id}>
-                        <div>Full Name: {user.FullName}</div>
-                        <div>User Name: {user.UserName}</div>
-                        <div>ID: {user.StudentID}</div>
-                        <div><img src={user.img} alt={user.UserName + " img prove"} style={{width: "100px", height: "100px"}}/></div>
-                        <div>CGPA: {user.CGPA}</div>
-                    </Card>
-                ))}
+                {
+                    data.map(user =>(
+                        <Card className="mb-4" key={user.id}>
+                            <div>Full Name: {user.FullName}</div>
+                            <div>User Name: {user.UserName}</div>
+                            <div>ID: {user.StudentID}</div>
+                            <div><img src={user.img} alt={user.UserName + " img prove"} style={{width: "100px", height: "100px"}}/></div>
+                            <div>CGPA: {user.CGPA}</div>
+                        </Card>
+                    ))
+                }
             </Container>
         </div>
     )

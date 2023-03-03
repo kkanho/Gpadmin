@@ -9,6 +9,7 @@ import About from "./pages/about/About"
 import Find from "./pages/Find"
 import { AuthContext } from "./context/AuthContext"
 import { useContext } from "react"
+import Profile from "./pages/Profile"
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
             <Route path="/signUp" element={<SignUp />} />
             <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/find" element={
                 <RequireAuth>
                   <Find />

@@ -23,11 +23,6 @@ export default function SignUp() {
     //navigate hooks
     const navigate = useNavigate()
 
-    //check for terms and privacy
-    const handleChecked = (event) => {
-        setChecked(event.target.checked);
-    }
-
     const { dispatch, currentUser } = useContext(AuthContext)
 
     //load this every time the page is loaded
@@ -95,6 +90,11 @@ export default function SignUp() {
     }
     // console.log(data)
 
+    //check for terms and privacy
+    const handleChecked = (event) => {
+        setChecked(event.target.checked);
+    }
+
     //Press the sign up button
     const handleSubmit = async(event) => {
         event.preventDefault()//prevent the page from reloading
@@ -142,7 +142,7 @@ export default function SignUp() {
                     console.log("Success in Setting document")
                     console.log("Finished")
                     //Back to homepage
-                    navigate("/home")
+                    navigate("/")
                 })
                 .catch((err) => {
                     console.log(err)

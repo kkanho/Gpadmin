@@ -9,6 +9,8 @@ export default function Find() {
     console.log("================================================================")
 
     const [data, setData] = useState([]) // database
+
+    //use getDocs just for getting data for once
     useEffect(() => {
         const fetchData = async () => {
             let list = []
@@ -42,14 +44,14 @@ export default function Find() {
         for(var i=0; i<=data.length-1; i++){
             console.log("data[i]: ", data[i].id)
             console.log("current[0]: ", current[0].id)
-            for(var j=0; j<=data[i].Subject.length-1; j++){
-                if(data[i].Subject[j] == "SEHH" // test subject code as SEHH
-                    && data[i].id !== current[0].id){ // filter out current user
-                        matchedUsers.push(data[i])
-                        matched = true
-                        console.log("matched list: ", matchedUsers, matchedUsers.length)
-                    }
-            }
+            // for(var j=0; j<=data[i].Subject.length-1; j++){
+            //     if(data[i].Subject[j] == "SEHH" // test subject code as SEHH
+            //         && data[i].id !== current[0].id){ // filter out current user
+            //             matchedUsers.push(data[i])
+            //             matched = true
+            //             console.log("matched list: ", matchedUsers, matchedUsers.length)
+            //         }
+            // }
         }
         if(!matched){
             console.log("no matched")
@@ -75,7 +77,6 @@ export default function Find() {
         console.log("--------------------match() end--------------------")
         }
     }
-        
 
     function display(){
         console.log("--------------------display() start--------------------")
@@ -97,7 +98,6 @@ export default function Find() {
             return (
                 <div>
                     <p align="center">No match found!</p>
-                    {console.log("displaying no match")}
                     {console.log("--------------------display() end--------------------")}
                 </div>
             )
@@ -115,7 +115,9 @@ export default function Find() {
                         <Button style={{ width: "100px", height: "500px",}} type="submit" value="reject">Reject</Button>
                     </div>
                     <div className="col-6">
-                        {display()}
+                        {
+                            display()
+                        }
                     </div>
                     <div className="col-3">
                         <Button style={{ width: "100px", height: "500px",}} type="submit" value="accept">Accept</Button>
