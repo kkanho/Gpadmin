@@ -17,7 +17,7 @@ export default function Home() {
             <h1 className={style.title}>Home</h1>
             {
                 (currentUser === null)? (
-                    <Link>
+                    <Link to={"/signUp"}>
                         <Button>Register Now</Button>
                     </Link>
                 ): ("") //if user already login in, show nothing

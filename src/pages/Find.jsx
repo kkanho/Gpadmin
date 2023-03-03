@@ -25,18 +25,18 @@ export default function Find() {
                 const docRef = doc(db, "users", currentUser.uid);
                 getDoc(docRef)
                     .then((doc) => {
-                        const current = doc.data()
-                        console.log(doc.data())
-                        return current
+                        const currentUserWithInfo = doc.data()
+                        // console.log(doc.data())
+                        return currentUserWithInfo
                     })
                     //start filter the user
-                    .then((current) => {
+                    .then((currentUserWithInfo) => {
                         setFilteredUser(users
                             .filter((user) => { //remove the currentUser form the data
                                 return user.id !== currentUser.uid
                             })
                             .filter((user) => {
-                                return user.CGPA <= current.CGPA + 0.8 && user.CGPA >= current.CGPA - 0.8
+                                return user.CGPA <= currentUserWithInfo.CGPA + 0.8 && user.CGPA >= currentUserWithInfo.CGPA - 0.8
                             })
                             // .filter((user) => {
                             //     return 
@@ -49,15 +49,13 @@ export default function Find() {
         }
         fetchData()
     }, [])
-    console.log("data: ", filteredUser)
+    console.log("Filtered Data: ", filteredUser)
 
     var matchedUsers = [] // subject list
 
     const { currentUser } = useContext(AuthContext) // get current uid
     // console.log(currentUser)
     // const current = data.filter( user => user.id === currentUser.uid) // get data through uid
-
-
 
 
     // function match(){
@@ -118,7 +116,7 @@ export default function Find() {
             <Container className="col-xl-5 col-lg-8 col-md-10 col-12">
                 <div className="row">
                     <div className="col-3">
-                        <Button style={{ width: "100px", height: "500px", }} type="submit" value="reject">Reject</Button>
+                        <Button style={{ width: "100px", height: "500px", }} type="submit" value="reject" variant="danger">Reject</Button>
                     </div>
                     <div className="col-6">
                         {

@@ -82,9 +82,9 @@ export default function AuthNavbar() {
                             <>
                                 <Nav className="justify-content-end flex-grow-1 pe-3">
                                     <Nav className="me-auto gap-2 d-flex justify-content-center">
-                                        <Link to={"/"} className="nav-link">Home</Link>
-                                        <Link to={"/find"} className="nav-link">Find</Link>
-                                        <Link to={"/about"} className="nav-link">About</Link>
+                                        <Link to={"/"} className="nav-link navbarDec">Home</Link>
+                                        <Link to={"/find"} className="nav-link navbarDec">Find</Link>
+                                        <Link to={"/about"} className="nav-link navbarDec">About</Link>
                                     </Nav>
                                 </Nav>
                                 {
