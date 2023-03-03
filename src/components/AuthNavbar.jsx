@@ -3,6 +3,8 @@ import { Navbar, Container, Button, Nav, Offcanvas, Dropdown } from "react-boots
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext"
 import UserIcon from "../components/UserIcon"
+import { signOut } from "firebase/auth";
+import { auth } from "../data/firebase";
 
 export default function AuthNavbar() {
 
@@ -17,13 +19,12 @@ export default function AuthNavbar() {
             href=""
             ref={ref}
             onClick={(e) => {
-            e.preventDefault();
-            onClick(e);
+                e.preventDefault();
+                onClick(e);
             }}
             className="d-flex align-items-center"
         >
             {children}
-            {/* &#x25bc; */}
         </a>
     ));
 
@@ -90,7 +91,7 @@ export default function AuthNavbar() {
                                 {
                                     //if user is not logged in
                                     (currentUser === null) ? (
-                                        <Link to={"/login"} className="d-flex justify-content-end">
+                                        <Link to={"/login"} className="d-flex justify-content-end" style={{ textDecoration: "none" }}>
                                             <Button>
                                                 Login
                                             </Button>
@@ -107,15 +108,23 @@ export default function AuthNavbar() {
                                                     </Dropdown.Item>
                                                     <Dropdown.Divider />
                                                     <Dropdown.Item eventKey="2" onClick={() => {
-                                                            window.localStorage.removeItem("user")
-                                                            window.location.reload()
-                                                        }}
-                                                        style={{color: "red"}}
+                                                        auth.signOut()
+                                                            .then(function () {
+                                                                // Sign-out successful.
+                                                                window.localStorage.removeItem("user")
+                                                                window.location.reload()
+                                                            })
+                                                            .catch(function (error) {
+                                                                // An error happened
+                                                            });
+
+                                                    }}
+                                                        style={{ color: "red" }}
                                                     >
                                                         Logout
                                                     </Dropdown.Item>
                                                 </Dropdown.Menu>
-                                                
+
                                             </Dropdown>
                                         </div>
                                     )

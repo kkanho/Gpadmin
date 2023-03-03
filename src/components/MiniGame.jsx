@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { Button, Container, Dropdown } from 'react-bootstrap';
 import pon from "/assets/frame0.png"
 import kick from "/assets/frame1.png"
+import fire from "/assets/fireflame.png"
 
 export default function MiniGame() {
 
-    let audio = new Audio("/assets/KickSound.mp3")
+    let audioKick = new Audio("/assets/KickSound.mp3")
+    let audioFlame = new Audio("/assets/flameSound.mp3")
 
     const [pic, setPic] = useState(pon)
     const [score, setScore] = useState(0)
@@ -21,7 +23,12 @@ export default function MiniGame() {
             setPic(pon)
         } else {
             setPic(kick)
-            audio.play()
+            audioKick.play()
+            // if (score == 20) {
+            //     audioFlame.play
+            // }else {
+                
+            // }
             handleScore()
         }
     }
@@ -35,6 +42,12 @@ export default function MiniGame() {
         setScore(0)
         setStart(true)
     }
+
+    // function handleFlame() {
+    //      (
+    //         return 
+    //     )
+    // }
 
     if (seconds === period) {
         alert("You have kicked the freerider for " + score + " times in " + period + " seconds!");
@@ -99,11 +112,33 @@ export default function MiniGame() {
                         <Container className="d-flex justify-content-space-between">
                             <h1>Your Score: {score}</h1>
                         </Container>
-                        <Container className="d-flex justify-content-center">
-                            <img
-                                src={pic}
-                                onClick={kickFreerider}
-                            />
+                        <Container
+                            className="d-flex justify-content-center"
+                        >
+                            <div onClick={kickFreerider} style={{ position: "relative", top: "0", left: "0" }}>
+                                <img
+                                    src={pic}
+                                    style={{
+                                        position: "relative",
+                                        top: "0",
+                                        left: "0"
+                                    }}
+                                />
+                                {
+                                    // (score >= 20) ? (
+                                    //     <img
+                                    //         src={fire}
+                                    //         style={{
+                                    //             position: "absolute",
+                                    //             height: "30rem",
+                                    //             width: "30rem",
+                                    //             top: "1rem",
+                                    //             left: "0rem",
+                                    //         }}
+                                    //     />
+                                    // ) : (<></>)
+                                }
+                            </div>
                         </Container>
                     </>
                 )
