@@ -65,11 +65,19 @@ export default function Profile() {
         setOnChange(true)
     }
 
+    useEffect(() => {
+        setChecked(userData?.Subject)
+    }, [userData])
+
+    useEffect(() => {
+        setData(prev => ({ ...prev, "Subject": checked }))
+    }, [checked])
+
     function handleDone() {
         //check the password input field first
         setOnChange(false)
         //push the checked item array to data object
-        setData({...data, "Subject": checked})
+        // setData({...data, "Subject": checked})
         //update the data in the firebase
         updateDoc(docRef, data)
             .then(docRef => {
