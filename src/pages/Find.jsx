@@ -1,4 +1,4 @@
-import { Button, Container } from "react-bootstrap"
+import { Button, Card, Container } from "react-bootstrap"
 import { useContext } from "react"
 import { AuthContext } from "../context/AuthContext"
 import React, { useState, useEffect } from 'react'
@@ -9,6 +9,11 @@ import { db } from "../data/firebase"
 export default function Find() {
 
     const [filteredUser, setFilteredUser] = useState([]) // cgpa filtered list
+    const [acceptList, setAcceptList] = useState([]) // cgpa filtered list
+    const [rejectList, setRejectList] = useState([]) // cgpa filtered list
+    const [userDisplaying, setUserDisplaying] = useState(0) // the index of user currently displaying
+
+    const { currentUser } = useContext(AuthContext) // get current uid
 
     //use getDocs just for getting all the data(including current user) for once
     useEffect(() => {
@@ -32,15 +37,11 @@ export default function Find() {
                     //start filter the user
                     .then((currentUserWithInfo) => {
                         setFilteredUser(users
-                            .filter((user) => { //remove the currentUser form the data
-                                return user.id !== currentUser.uid
+                            .filter((user) => { 
+                                return (user.id !== currentUser.uid) && //remove the currentUser form the data
+                                    (user.CGPA <= currentUserWithInfo.CGPA + 0.8) && //remove user data that exceed the range
+                                    (user.CGPA >= currentUserWithInfo.CGPA - 0.8)
                             })
-                            .filter((user) => {
-                                return user.CGPA <= currentUserWithInfo.CGPA + 0.8 && user.CGPA >= currentUserWithInfo.CGPA - 0.8
-                            })
-                            // .filter((user) => {
-                            //     return 
-                            // })
                         )
                     })
             } catch (err) {
@@ -51,13 +52,33 @@ export default function Find() {
     }, [])
     console.log("Filtered Data: ", filteredUser)
 
-    var matchedUsers = [] // subject list
+    function displayNextUser() {
+        setUserDisplaying(prev => prev + 1)
+        if(userDisplaying > filteredUser.length) {
+            //if no more matching users
+            console.log(acceptList)
+            console.log(rejectList)
+        }
+    }
 
-    const { currentUser } = useContext(AuthContext) // get current uid
+    function handleAccept() {
+        //store it in the accept list
+
+        displayNextUser()
+    }
+
+    function handleReject() {
+        //store it in the reject list
+
+        displayNextUser()
+    }
+
+
+
+
+    // var matchedUsers = [] // subject list
     // console.log(currentUser)
     // const current = data.filter( user => user.id === currentUser.uid) // get data through uid
-
-
     // function match(){
     //     console.log("--------------------match() start--------------------")
     //     var filtered = false
@@ -116,18 +137,20 @@ export default function Find() {
             <Container className="col-xl-5 col-lg-8 col-md-10 col-12">
                 <div className="row">
                     <div className="col-3">
-                        <Button style={{ width: "100px", height: "500px", }} type="submit" value="reject" variant="danger">Reject</Button>
+                        <Button style={{ width: "100px", height: "500px", }} type="submit" value="reject" variant="danger" onClick={handleReject}>Reject</Button>
                     </div>
                     <div className="col-6">
                         {
-                            (filteredUser[0] != null) ? (
-                                <div>
-                                    <div>Full Name: {filteredUser[0].FullName}</div>
-                                    <div>User Name: {filteredUser[0].UserName}</div>
-                                    <div>ID: {filteredUser[0].StudentID}</div>
-                                    <div><img src={filteredUser[0].img} alt={filteredUser[0].UserName + " img prove"} style={{ width: "100px", height: "100px" }} /></div>
-                                    <div>CGPA: {filteredUser[0].CGPA}</div>
-                                </div>
+                            (filteredUser != null) ? (
+                                filteredUser && filteredUser.filter((user, index) => index === userDisplaying).map(user =>(
+                                    <Card className="mb-4" key={user.id}>
+                                        <div>Full Name: {user.FullName}</div>
+                                        <div>User Name: {user.UserName}</div>
+                                        <div>ID: {user.StudentID}</div>
+                                        <div><img src={user.img} alt={user.UserName + " img prove"} style={{width: "100px", height: "100px"}}/></div>
+                                        <div>CGPA: {user.CGPA} </div>
+                                    </Card>
+                                ))
                             ) : (
                                 <div>
                                     <p align="center">No match found!</p>
@@ -136,7 +159,7 @@ export default function Find() {
                         }
                     </div>
                     <div className="col-3">
-                        <Button style={{ width: "100px", height: "500px", }} type="submit" value="accept">Accept</Button>
+                        <Button style={{ width: "100px", height: "500px", }} type="submit" value="accept" onClick={handleAccept}>Accept</Button>
                     </div>
                 </div>
             </Container>

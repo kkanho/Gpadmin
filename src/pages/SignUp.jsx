@@ -90,7 +90,7 @@ export default function SignUp() {
     }
     // console.log(data)
 
-    //check for terms and privacy
+    //for terms and privacy checkbox
     const handleChecked = (event) => {
         setChecked(event.target.checked);
     }

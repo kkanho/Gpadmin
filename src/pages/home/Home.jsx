@@ -1,6 +1,5 @@
 import React from 'react'
 import { Button, Container } from 'react-bootstrap'
-import List from '../../components/List'
 import style from "./home.module.css";
 import { AuthContext } from "../../context/AuthContext"
 import { useContext } from "react"
@@ -20,7 +19,7 @@ export default function Home() {
                     <Link to={"/signUp"}>
                         <Button>Register Now</Button>
                     </Link>
-                ): ("") //if user already login in, show nothing
+                ): (<></>) //if user already login in, show nothing
             }
         </Container>
     )
