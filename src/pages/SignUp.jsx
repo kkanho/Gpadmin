@@ -16,10 +16,16 @@ export default function SignUp() {
     const [confirmPassword, setConfirmPassword] = useState("")
     const [checked, setChecked] = useState(false)
     const [validated, setValidated] = useState(false)
+    const [fullNameValid, setFullNameValid] = useState()
+    const [userNameValid, setUserNameValid] = useState()
+    const [studentIdValid, setStudentIdValid] = useState()
+    const [passwordValid, setPasswordValid] = useState()
+    const [confirmPasswordValid, setConfirmPasswordValid] = useState()
+    const [cgpaValid, setCgpaValid] = useState()
     const [file, setFile] = useState("")
     const [data, setData] = useState({})
     const [uploadProgress, setUploadProgress] = useState(null)
-
+    
     //navigate hooks
     const navigate = useNavigate()
 
@@ -83,12 +89,58 @@ export default function SignUp() {
         const id = e.target.id
         const value = e.target.value
         setData({ ...data, [id]: value })
-        if(data.Password !== undefined){
-            if ((data.Password).length < 6) {
-            
-        }}
     }
-    // console.log(data)
+    console.log(data)
+
+    function onlyLettersAndNumbers(str) {//RegExp 
+        return /^[A-Za-z0-9]*$/.test(str);
+    }
+
+    // do some checking (for prompt purposes only)
+    useEffect(()=>{
+        //valid check for prompt
+        if( !data.FullName || onlyLettersAndNumbers(data.FullName) ){//full name checking
+            setFullNameValid(true)
+        } else {
+            setFullNameValid(false)
+        }
+        if( !data.UserName || onlyLettersAndNumbers(data.UserName) ){//user name checking
+            setUserNameValid(true)
+        } else {
+            setUserNameValid(false)
+        }
+        if( !data.StudentID || onlyLettersAndNumbers(data.StudentID) ){//Student ID checking
+            setStudentIdValid(true)
+        } else {
+            setStudentIdValid(false)
+        }
+        if( !data.Password || !(data.Password).length < 6 ){//password checking
+            setPasswordValid(true)
+        } else {
+            setPasswordValid(false)
+        }
+        if( !data.CGPA || (data.CGPA).length <= 4 ||
+            !(
+                parseFloat(data.CGPA) < 0 || 
+                parseFloat(data.CGPA) > 4.3 || 
+                isNaN(parseFloat(data.CGPA))
+            )
+        ){//cgpa checking
+            setCgpaValid(true)
+        } else {
+            setCgpaValid(false)
+        }
+
+    }, [data])
+    
+    //whenever confirm password change
+    useEffect(()=>{
+        if(!confirmPassword || confirmPassword.length >= 6 ){//confirm password checking
+            setConfirmPasswordValid(true)
+        } else {
+            setConfirmPasswordValid(false)
+        }
+    }, [confirmPassword])
 
     //for terms and privacy checkbox
     const handleChecked = (event) => {
@@ -100,25 +152,53 @@ export default function SignUp() {
         event.preventDefault()//prevent the page from reloading
             const form = event.currentTarget
             if (form.checkValidity() === false) {//check all the input fields, if there is any null input
-                //stop the event shapely
+                //stop the event
                 event.stopPropagation()
-            } else {//there is no null input
-                //check if the password strong enough(at least 6 characters)
-                if ((data.Password).length < 6) {
+            } else {// no null input
+                if(!fullNameValid) {
+                    setError("Full name should not contain any special characters")
+                    return error
+                }
+                else if(!userNameValid) {
+                    setError("User name should not contain any special characters")
+                    return error
+                }
+                else if(!studentIdValid) {
+                    setError("Student email should not contain any special characters")
+                    return error
+                }
+                else if(!passwordValid) {
                     setError("Password should be at least 6 characters")
                     return error
                 }
                 //check if the confirmPassword is equal to the password
-                if (confirmPassword !== data.Password) {
+                else if(confirmPassword !== data.Password) {
                     setError("Password don't match!")
                     return error
                 }
                 //check if the GPA value valid
-                console.log(parseFloat(data.CGPA))
-                if (parseFloat(data.CGPA) < 0 || parseFloat(data.CGPA) > 4.3 || isNaN(parseFloat(data.CGPA))) {
+                else if(!cgpaValid) {
                     setError("GPA value not valid!")
                     return error
                 }
+                //check if any not valid values
+                else if(
+                    !validated && 
+                    !fullNameValid && 
+                    !userNameValid && 
+                    !studentIdValid && 
+                    !passwordValid && 
+                    !confirmPasswordValid && 
+                    !cgpaValid
+                ){
+                    setError("Nothing should be null!!!")
+                    return error
+                }
+                if(error){ 
+                    console.log(error)
+                    event.stopPropagation()
+                }
+
                 //pass the data to the firebase
                 console.log("trying to upload the data and create a new user")
                 const passEmail = data.StudentID + "@" + schoolMailTemp
@@ -170,6 +250,7 @@ export default function SignUp() {
                                         type="text"
                                         placeholder="Enter your full name here"
                                         onChange={handleInput}
+                                        isInvalid={!fullNameValid}
                                     />
                                     <Form.Control.Feedback>Looks cool!</Form.Control.Feedback>
                                 </Form.Group>
@@ -180,6 +261,7 @@ export default function SignUp() {
                                         placeholder="UserName"
                                         required
                                         onChange={handleInput}
+                                        isInvalid={!userNameValid}
                                     />
                                     <Form.Control.Feedback>
                                         Looks cool!
@@ -197,6 +279,7 @@ export default function SignUp() {
                                             type="text"
                                             placeholder="Student ID"
                                             aria-describedby="inputGroupPrepend"
+                                            isInvalid={!studentIdValid}
                                         />
                                         <InputGroup.Text id="inputGroupPrepend">@{schoolMailTemp}</InputGroup.Text>
                                         <Form.Control.Feedback type="invalid">
@@ -217,6 +300,7 @@ export default function SignUp() {
                                         required
                                         onChange={handleInput}
                                         autoComplete="new-password"
+                                        isInvalid={!passwordValid}
                                     />
                                     <Form.Control.Feedback type="invalid">
                                         Please provide a valid Password.
@@ -230,6 +314,7 @@ export default function SignUp() {
                                         required
                                         onChange={e => setConfirmPassword(e.target.value)}
                                         autoComplete="new-password"
+                                        isInvalid={!confirmPasswordValid}
                                     />
                                 </Form.Group>
                             </Row>
@@ -237,13 +322,15 @@ export default function SignUp() {
                                 <Form.Group as={Col} md="4" controlId="CGPA">
                                     <Form.Label className="fs-5">CGPA</Form.Label>
                                     <Form.Control
-                                        type="text"
+                                        type="number"
+                                        step="0.01"
                                         placeholder="e.g.3.66"
                                         required
                                         onChange={handleInput}
+                                        isInvalid={!cgpaValid}
                                     />
                                     <Form.Control.Feedback type="invalid">
-                                        Please Enter a CGPA.
+                                        Please Enter a valid CGPA.
                                     </Form.Control.Feedback>
                                 </Form.Group>
                                 <Form.Group as={Col} md="8" className="position-relative mb-3">
@@ -268,7 +355,12 @@ export default function SignUp() {
                             </Form.Group>
                             <Row className="mb-2">
                                 <Col className="mb-3 d-flex justify-content-center">
-                                    <Button style={{ width: "100%" }} type="submit" disabled={(uploadProgress !== null && uploadProgress < 100) || !checked}>Sign Up</Button>
+                                    <Button style={{ width: "100%" }} 
+                                        type="submit" 
+                                        disabled={(uploadProgress !== null && uploadProgress < 100) || !checked}
+                                    >
+                                        Sign Up
+                                    </Button>
                                 </Col>
                             </Row>
                         </Form>
