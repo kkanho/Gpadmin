@@ -97,7 +97,7 @@ export default function Profile() {
         <Container className="d-flex flex-column justify-content-center align-items" style={{ height: "90vh" }}>
             <Container className="d-flex justify-content-center">
                 <Card style={{ width: '50rem' }}>
-                    <Row className="justify-content-center p-4 fs-4">Hello There!</Row>
+                    <Row className="justify-content-center p-4 fs-4">Hello {userData.UserName}!</Row>
                     <Container className="ml-4">
                         <Form className="justify-content-center">
                             {
