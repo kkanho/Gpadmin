@@ -133,10 +133,8 @@ export default function Profile() {
                                     </Row>
                                 </>
                             }
+                            <Col key="title">Subject Studied:</Col>
                             <InputGroup className="mb-3">
-                                <Col key="title">
-                                    Subject Studied:
-                                </Col>
                                 {
                                     Object.entries(subjects).map(([key, value], index) =>
                                         <Col key={index}>
