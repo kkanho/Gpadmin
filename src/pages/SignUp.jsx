@@ -96,10 +96,19 @@ export default function SignUp() {
         return /^[A-Za-z0-9]*$/.test(str);
     }
 
-    // do some checking (for prompt purposes only)
+    function onlyLettersAndSpace(str) {//RegExp 
+        return (
+            /^[A-Za-z0-9\s]*$/.test(str) //number shouldn't appear in the full name, but we let go this case
+            // /[A-Za-z]/.test(str) &&
+            // /\s/.test(str)
+        )
+    }
+
+
+    //whenever data change, do some checking (for prompt purposes only)
     useEffect(()=>{
         //valid check for prompt
-        if( !data.FullName || onlyLettersAndNumbers(data.FullName) ){//full name checking
+        if( !data.FullName || onlyLettersAndSpace(data.FullName) ){//full name checking
             setFullNameValid(true)
         } else {
             setFullNameValid(false)
@@ -226,7 +235,7 @@ export default function SignUp() {
                 })
                 .catch((err) => {
                     console.log(err)
-                    setError("UnSuccessful")
+                    setError("UnSuccessful!")
                 })
             }
         setValidated(true)//now the data have been checked
@@ -277,7 +286,7 @@ export default function SignUp() {
                                             name="studentID"
                                             onChange={handleInput}
                                             type="text"
-                                            placeholder="Student ID"
+                                            placeholder="ID"
                                             aria-describedby="inputGroupPrepend"
                                             isInvalid={!studentIdValid}
                                         />

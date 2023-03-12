@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Navbar, Container, Button, Nav, Offcanvas, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext"
@@ -10,7 +10,12 @@ export default function AuthNavbar() {
 
     const expand = 'md'
 
+    const [show, setShow] = useState(false)
+
     const { currentUser } = useContext(AuthContext)
+
+    const handleClose = () => setShow(false)
+    const handleShow = () => setShow(true)
 
     // The forwardRef is important!!
     // Dropdown needs access to the DOM node in order to position the Menu
@@ -66,15 +71,17 @@ export default function AuthNavbar() {
                     <Link to={"/"} className="nav-link">
                         <Navbar.Brand>Gpadmin</Navbar.Brand>
                     </Link>
-                    <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
+                    <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} onClick={handleShow}/>
                     <Navbar.Offcanvas
                         id={`offcanvasNavbar-expand-${expand}`}
                         aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
                         placement="end"
+                        show={show}
+                        onHide={handleClose}
                     >
                         <Offcanvas.Header closeButton>
                             <Link to={"/"} className="nav-link">
-                                <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
+                                <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`} onClick={handleClose}>
                                     Gpadmin
                                 </Offcanvas.Title>
                             </Link>
@@ -83,16 +90,16 @@ export default function AuthNavbar() {
                             <>
                                 <Nav className="justify-content-end flex-grow-1 pe-3">
                                     <Nav className="me-auto gap-2 d-flex justify-content-center">
-                                        <Link to={"/"} className="nav-link navbarDec">Home</Link>
-                                        <Link to={"/find"} className="nav-link navbarDec">Find</Link>
-                                        <Link to={"/about"} className="nav-link navbarDec">About</Link>
+                                        <Link to={"/"} className="nav-link navbarDec" onClick={handleClose}>Home</Link>
+                                        <Link to={"/find"} className="nav-link navbarDec" onClick={handleClose}>Find</Link>
+                                        <Link to={"/about"} className="nav-link navbarDec" onClick={handleClose}>About</Link>
                                     </Nav>
                                 </Nav>
                                 {
                                     //if user is not logged in
                                     (currentUser === null) ? (
                                         <Link to={"/login"} className="d-flex justify-content-end" style={{ textDecoration: "none" }}>
-                                            <Button>
+                                            <Button onClick={handleClose}>
                                                 Login
                                             </Button>
                                         </Link>
@@ -103,21 +110,21 @@ export default function AuthNavbar() {
                                                     <UserIcon />
                                                 </Dropdown.Toggle>
                                                 <Dropdown.Menu>
-                                                    <Dropdown.Item eventKey="1" as={Link} to="/profile">
+                                                    <Dropdown.Item eventKey="1" as={Link} to="/profile" onClick={handleClose}>
                                                         Profile
                                                     </Dropdown.Item>
                                                     <Dropdown.Divider />
                                                     <Dropdown.Item eventKey="2" onClick={() => {
                                                         auth.signOut()
-                                                            .then(function () {
+                                                            .then(() => {
                                                                 // Sign-out successful.
                                                                 window.localStorage.removeItem("user")
                                                                 window.location.reload()
                                                             })
-                                                            .catch(function (error) {
+                                                            .catch((error) => {
                                                                 // An error happened
+                                                                console.log(error)
                                                             });
-
                                                     }}
                                                         style={{ color: "red" }}
                                                     >
