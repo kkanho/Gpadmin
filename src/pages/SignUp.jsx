@@ -114,12 +114,12 @@ export default function SignUp() {
         } else {
             setStudentIdValid(false)
         }
-        if( !data.Password || !(data.Password).length < 6 ){//password checking
+        if( !data.Password || (data.Password).length >= 6 ){//password checking
             setPasswordValid(true)
         } else {
             setPasswordValid(false)
         }
-        if( !data.CGPA || (data.CGPA).length <= 4 ||
+        if( !data.CGPA || (data.CGPA).length <= 4 &&
             !(
                 parseFloat(data.CGPA) < 0 || 
                 parseFloat(data.CGPA) > 4.3 || 
@@ -241,7 +241,7 @@ export default function SignUp() {
                 <Card.Header>
                     <Row className="justify-content-center p-4 fs-4">Sign Up</Row>
                     <Container className="ml-4">
-                        <Form className="justify-content-center" noValidate validated={validated} onSubmit={handleSubmit}>
+                        <Form className="justify-content-center" onSubmit={handleSubmit}>
                             <Row className="mb-2">
                                 <Form.Group as={Col} md="6" controlId="FullName">
                                     <Form.Label className="fs-5">Full Name</Form.Label>
