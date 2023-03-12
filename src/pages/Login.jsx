@@ -23,7 +23,7 @@ export default function Login() {
             //back to home page
             navigate("/")
         } 
-    });
+    }, []);
     
     const handleLogin = (event) => {
         event.preventDefault() //prevent the page from loading

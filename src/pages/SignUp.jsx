@@ -38,7 +38,7 @@ export default function SignUp() {
             //back to home page
             navigate("/")
         }
-    });
+    }, []);
 
     //for upload a img file to the firestore 
     useEffect(() => {
